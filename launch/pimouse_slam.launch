@@ -1,0 +1,5 @@
+<launch>
+	<node pkg="pimouse_slam" name="" type="motors" required="true" />
+	<node pkg="pimouse_slam" name="" type="keyboard_cmd_vel.py" required="true" />
+</launch>
+
