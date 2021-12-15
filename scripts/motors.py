@@ -100,6 +100,9 @@ class Motor():
         self.x += self.vx * math.cos(self.th) * dt
         self.y += self.vx * math.sin(self.th) * dt
         self.th += self.vth * dt 
+	#self.x -= self.vx * math.cos(self.th) * dt
+	#self.y -= self.vx * math.sin(self.th) * dt
+	#self.th -= self.vth * dt
 
         q = tf.transformations.quaternion_from_euler(0, 0, self.th)
         self.bc_odom.sendTransform((self.x,self.y,0.0), q, self.cur_time,"base_link","odom")
