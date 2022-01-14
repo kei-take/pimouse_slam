@@ -1,0 +1,31 @@
+<launch>
+<!--  <node pkg="pimouse_slam" name="keyboard_cmd_vel" type="keyboard_cmd_vel.py" required="true" /> -->
+  <node pkg="pimouse_monitor" name="webserver" type="webserver.py" args="8000" />
+  <node pkg="pimouse_ros" name="buzzer" type="buzzer.py" required="true" />
+  <node pkg="pimouse_ros" name="lightsensors" type="lightsensors.py" required="true" />
+  <node pkg="pimouse_slam" name="motors" type="motors.py" required="true" />
+  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"> 
+     <arg name="port" value="9000"/>
+  </include>
+  
+  <node pkg="cv_camera" name="cv_camera_node" type="cv_camera_node" >
+    <param name="rate" value="10.0" />
+    <param name="image_width" value="320" />
+    <param name="image_height" value="240" />
+  </node>
+
+  <node pkg="mjpeg_server" name="mjpeg_server" type="mjpeg_server" >
+    <param name="port" value="10000" />
+  </node>
+
+<!--  <node pkg="rplidar_ros" name="rplidar" type="rplidar.launch" required="true" > -->
+  <node name="rplidarNode" pkg="rplidar_ros" type="rplidarNode" output="log">
+    <param name="serial_port" type="string" value="/dev/ttyUSB0"/>
+    <param name="serial_baudrate" type="int" value="115200"/><!--A1/A2 -->
+    <!--<param name="frame_id" type="string" value="laser"/> -->
+    <param name="inverted" type="bool" value="false"/>
+    <param name="angle_compensate" type="bool" value="true"/>
+    <param name="frame_id" value="base_link"/>
+  </node>
+</launch>
+
